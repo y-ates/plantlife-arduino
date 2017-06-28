@@ -23,15 +23,15 @@
 #define PHOTORESISTOR_PIN A0
 #define MOISTURE_PIN A1
 
-const int onTime         = 60 * 1000;  // 60 seconds
-const int nightThreshold = 70;
+const int onTime                  = 60 * 1000;  // 60 seconds
+const int nightThreshold          = 70;
 const int humidityGroundThreshold = 200;
-const int loopDelay      = 2000;
+const int loopDelay               = 2000;
 
 DHT dht(DHTPIN, DHTTYPE);
-boolean isSunrise        = true;  // is it day or night?
-boolean isPumping        = false;
-boolean hasWater         = true;  // does the water tank have water?
+boolean isSunrise        = true;   // is it day or night?
+boolean isPumping        = false;  // is the pump currently pumping?
+boolean hasWater         = true;   // does the water tank have water?
 int lightReading;
 float humidity_air;
 float humidity_ground;
@@ -54,7 +54,7 @@ void loop() {
     }
 }
 
-/*
+/**
  * Decide when to pump. For now there has to be enough light, low humidity and
  * water in the tank to pump.
  */
@@ -66,9 +66,11 @@ boolean decidePump() {
             }
         }
     }
+
+    return false;
 }
 
-/*
+/**
  * Get all sensor data and refresh values.
  */
 void getSensors() {
@@ -77,7 +79,7 @@ void getSensors() {
     getMoisture();
 }
 
-/*
+/**
  * Read humidity and temperature in the air. This sensor is outside of the
  * plant.
  */
@@ -94,14 +96,14 @@ void getDHT22() {
     */
 }
 
-/*
+/**
  * Read humidity in the ground of that plant.
  */
 void getMoisture() {
     humidity_ground = analogRead(MOISTURE_PIN);
 }
 
-/*
+/**
  * Get daylight reading the photoresistor.
  * Identify sunrise/sundown as it is better to water at sunrise.
  * TODO: really identify sunrise - do not depend only on lightReading.
@@ -116,7 +118,7 @@ void getDaylight() {
         }
 }
 
-/*
+/**
  * Pump water for onTime ms
  */
 void pump() {
