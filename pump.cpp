@@ -174,13 +174,17 @@ void getMoisture() {
  */
 void getDaylight() {
         lightReading = analogRead(PHOTORESISTOR_PIN);
-        Serial.print("Light: ");
-        Serial.print(lightReading);
-
-        if (lightReading > nightThreshold) {  // sundown
-            isSunrise = false;
+        if (lightReading == 0) {
+            Serial.println("[-] Error: I am in a black hole.");
         } else {
-            isSunrise = true;
+            Serial.print("Light: ");
+            Serial.print(lightReading);
+
+            if (lightReading > nightThreshold) {  // sundown
+                isSunrise = false;
+            } else {
+                isSunrise = true;
+            }
         }
 }
 
