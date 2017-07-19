@@ -87,14 +87,55 @@ void getSensors() {
     getDHT22();
     getMoisture();
 
-    sender.send(1, 24);
+
+    /**
+     * Send format:
+     *
+     * Received 16777215  <- indicates that lightReading will be printed
+     * Received 16777215  <- indicates that lightReading will be printed
+     * Received 16777215  <- indicates that lightReading will be printed
+     * Received 16777215  <- indicates that lightReading will be printed
+     * Received 782       <- lightReading
+     * Received 782       <- lightReading
+     * Received 782       <- lightReading
+     * Received 782       <- lightReading
+     * Received 782       <- lightReading
+     * Received 16777214  <- indicates that humidity_air (int) will be printed
+     * Received 16777214  <- indicates that humidity_air (int) will be printed
+     * Received 16777214  <- indicates that humidity_air (int) will be printed
+     * Received 16777214  <- indicates that humidity_air (int) will be printed
+     * Received 16777214  <- indicates that humidity_air (int) will be printed
+     * Received 71        <- humidity_air
+     * Received 71        <- humidity_air
+     * Received 71        <- humidity_air
+     * Received 71        <- humidity_air
+     * Received 71        <- humidity_air
+     * Received 16777213  <- indicates that humidity_ground (int) will be printed
+     * Received 16777213  <- indicates that humidity_ground (int) will be printed
+     * Received 16777213  <- indicates that humidity_ground (int) will be printed
+     * Received 16777213  <- indicates that humidity_ground (int) will be printed
+     * Received 16777213  <- indicates that humidity_ground (int) will be printed
+     * <-    humidity_ground is not being read currently ->
+     * Received 16777212  <- indicates that temperature (int) will be printed
+     * Received 16777212  <- indicates that temperature (int) will be printed
+     * Received 16777212  <- indicates that temperature (int) will be printed
+     * Received 16777212  <- indicates that temperature (int) will be printed
+     * Received 16777212  <- indicates that temperature (int) will be printed
+     * Received 23        <- temperature
+     * Received 23        <- temperature
+     * Received 23        <- temperature
+     * Received 23        <- temperature
+     * Received 23        <- temperature
+     */
+    
+    sender.send(-1, 24);
     sender.send(lightReading, 24);
-    sender.send(2, 24); 
-    sender.send(humidity_air, 24);
-    sender.send(3, 24);
-    sender.send(humidity_ground, 24);
-    sender.send(4, 24);
-    sender.send(temperature, 24);
+    sender.send(-2, 24);
+    sender.send((int)humidity_air+0.5, 24);
+    sender.send(-3, 24);
+    sender.send((int)humidity_ground+0.5, 24);
+    sender.send(-4, 24);
+    sender.send((int)temperature+0.5, 24);
 }
 
 /**
