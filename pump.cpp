@@ -159,7 +159,8 @@ void getDHT22() {
  * Read humidity in the ground of that plant.
  */
 void getMoisture() {
-    humidity_ground = analogRead(MOISTURE_PIN);
+    // Currently there is no sensor for ground humidity at hand
+    //humidity_ground = analogRead(MOISTURE_PIN);
 }
 
 /**
