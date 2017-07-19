@@ -39,7 +39,10 @@ float temperature;
 
 void setup() {
     pinMode(PUMP_PIN, OUTPUT);
+    pinMode(PHOTORESISTOR_PIN, INPUT);
 
+    sender.enableTransmit(10);
+    sender.setProtocol(2);
     Serial.begin(9600);
     dht.begin();
 }
