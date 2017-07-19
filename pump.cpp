@@ -16,6 +16,7 @@
  ******************************************************************************/
 
 #include <DHT.h>
+#include <RCSwitch.h>
 
 #define PUMP_PIN 9
 #define DHTPIN 7
@@ -29,6 +30,7 @@ const int humidityGroundThreshold = 200;
 const int loopDelay               = 2000;
 
 DHT dht(DHTPIN, DHTTYPE);
+RCSwitch sender = RCSwitch();
 boolean isSunrise        = true;   // is it day or night?
 boolean isPumping        = false;  // is the pump currently pumping?
 boolean hasWater         = true;   // does the water tank have water?
@@ -80,6 +82,15 @@ void getSensors() {
     getDaylight();
     getDHT22();
     getMoisture();
+
+    sender.send(1, 24);
+    sender.send(lightReading, 24);
+    sender.send(2, 24); 
+    sender.send(humidity_air, 24);
+    sender.send(3, 24);
+    sender.send(humidity_ground, 24);
+    sender.send(4, 24);
+    sender.send(temperature, 24);
 }
 
 /**
