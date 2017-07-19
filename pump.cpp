@@ -146,13 +146,13 @@ void getDHT22() {
     humidity_air = dht.readHumidity();
     temperature  = dht.readTemperature();
 
-    /*
-    Serial.print("Humidity: ");
-    Serial.print(humidity);
+
+    Serial.print(", Humidity: ");
+    Serial.print(humidity_air);
     Serial.print(" %, Temp: ");
     Serial.print(temperature);
     Serial.println(" Celsius");
-    */
+
 }
 
 /**
