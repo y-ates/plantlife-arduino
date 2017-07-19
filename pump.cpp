@@ -123,15 +123,15 @@ void getSensors() {
      * Received 23        <- temperature
      * Received 23        <- temperature
      */
-    
+
     sender.send(-1, 24);
     sender.send(lightReading, 24);
     sender.send(-2, 24);
-    sender.send((int)humidity_air+0.5, 24);
+    sender.send(static_cast<int>(humidity_air+0.5), 24);
     sender.send(-3, 24);
-    sender.send((int)humidity_ground+0.5, 24);
+    sender.send(static_cast<int>(humidity_ground+0.5), 24);
     sender.send(-4, 24);
-    sender.send((int)temperature+0.5, 24);
+    sender.send(static_cast<int>(temperature+0.5), 24);
 }
 
 /**
@@ -148,7 +148,6 @@ void getDHT11() {
     Serial.print(" %, Temp: ");
     Serial.print(temperature);
     Serial.println(" Celsius");
-
 }
 
 /**
@@ -156,7 +155,7 @@ void getDHT11() {
  */
 void getMoisture() {
     // Currently there is no sensor for ground humidity at hand
-    //humidity_ground = analogRead(MOISTURE_PIN);
+    // humidity_ground = analogRead(MOISTURE_PIN);
 }
 
 /**
