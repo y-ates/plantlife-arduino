@@ -186,6 +186,7 @@ void getDaylight() {
 
 /**
  * Pump water for onTime ms
+ * Note: Thinking of adding a LED to indicate active pump.
  */
 void pump() {
     digitalWrite(PUMP_PIN, HIGH);
