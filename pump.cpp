@@ -23,8 +23,8 @@
 #define PHOTORESISTOR_PIN A0
 #define MOISTURE_PIN A1
 
-const int onTime                  = 60 * 1000;  // 60 seconds
-const int nightThreshold          = 70;
+const int onTime                  = 10 * 1000;
+const int nightThreshold          = 600;
 const int humidityGroundThreshold = 200;
 const int loopDelay               = 2000;
 
