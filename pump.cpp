@@ -38,6 +38,10 @@ int lightReading;
 float humidity_air;
 float humidity_ground;
 float temperature;
+int lightReading         = 0;
+float humidity_air       = 0;
+float humidity_ground    = 0;
+float temperature        = 0;
 
 void setup() {
     pinMode(PUMP_PIN, OUTPUT);
