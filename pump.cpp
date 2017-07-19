@@ -19,7 +19,7 @@
 
 #define MOTOR_PIN 9
 #define DHTPIN 7
-#define DHTTYPE DHT22
+#define DHTTYPE DHT11
 #define PHOTORESISTOR_PIN A0
 #define MOISTURE_PIN A1
 
