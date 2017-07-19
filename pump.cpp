@@ -80,7 +80,7 @@ boolean decidePump() {
  */
 void getSensors() {
     getDaylight();
-    getDHT22();
+    getDHT11();
     getMoisture();
 
 
@@ -138,7 +138,7 @@ void getSensors() {
  * Read humidity and temperature in the air. This sensor is outside of the
  * plant.
  */
-void getDHT22() {
+void getDHT11() {
     humidity_air = dht.readHumidity();
     temperature  = dht.readTemperature();
 
