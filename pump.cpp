@@ -34,10 +34,6 @@ RCSwitch sender = RCSwitch();
 boolean isSunrise        = true;   // is it day or night?
 boolean isPumping        = false;  // is the pump currently pumping?
 boolean hasWater         = true;   // does the water tank have water?
-int lightReading;
-float humidity_air;
-float humidity_ground;
-float temperature;
 int lightReading         = 0;
 float humidity_air       = 0;
 float humidity_ground    = 0;
@@ -170,8 +166,10 @@ void getMoisture() {
  */
 void getDaylight() {
         lightReading = analogRead(PHOTORESISTOR_PIN);
+        Serial.print("Light: ");
+        Serial.print(lightReading);
 
-        if (lightReading < nightThreshold) {  // sundown
+        if (lightReading > nightThreshold) {  // sundown
             isSunrise = false;
         } else {
             isSunrise = true;
