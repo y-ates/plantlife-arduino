@@ -17,7 +17,7 @@
 
 #include <DHT.h>
 
-#define MOTOR_PIN 9
+#define PUMP_PIN 9
 #define DHTPIN 7
 #define DHTTYPE DHT11
 #define PHOTORESISTOR_PIN A0
@@ -38,7 +38,7 @@ float humidity_ground;
 float temperature;
 
 void setup() {
-    pinMode(MOTOR_PIN, OUTPUT);
+    pinMode(PUMP_PIN, OUTPUT);
 
     Serial.begin(9600);
     dht.begin();
@@ -122,9 +122,9 @@ void getDaylight() {
  * Pump water for onTime ms
  */
 void pump() {
-    digitalWrite(MOTOR_PIN, HIGH);
+    digitalWrite(PUMP_PIN, HIGH);
     isPumping = true;
     delay(onTime);
-    digitalWrite(MOTOR_PIN, LOW);
+    digitalWrite(PUMP_PIN, LOW);
     isPumping = false;
 }
