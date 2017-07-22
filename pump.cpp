@@ -22,7 +22,7 @@
 #define DHTPIN 7
 #define DHTTYPE DHT11
 #define PHOTORESISTOR_PIN A0
-#define MOISTURE_PIN A1
+#define MOISTURE_PIN A5
 
 const int onTime                  = 10 * 1000;
 const int nightThreshold          = 600;
@@ -88,7 +88,7 @@ void getSensors() {
 
 /**
  * Send current sensor data with the 434 MHz module.
- * 
+ *
  * Send format:
  *
  * Received 16777215  <- indicates that lightReading will be printed
@@ -127,17 +127,18 @@ void getSensors() {
  * Received 23        <- temperature
  * Received 23        <- temperature
  *
- * Note: Every paket will be send 4 times as shown above. 
+ * Note: Every paket will be send 4 times as shown above.
  */
 void sendSensordata() {
-    sender.send(-1, 24);
+    /*sender.send(130000+lightReading, 24);
+      sender.send(static_cast<int>(110000+humidity_air    + 0.5), 24);
+      sender.send(static_cast<int>(100000+humidity_ground + 0.5), 24);
+      sender.send(static_cast<int>(120000+temperature     + 0.5), 24);*/
+
     sender.send(lightReading, 24);
-    sender.send(-2, 24);
     sender.send(static_cast<int>(humidity_air    + 0.5), 24);
-    sender.send(-3, 24);
     sender.send(static_cast<int>(humidity_ground + 0.5), 24);
-    sender.send(-4, 24);
-    sender.send(static_cast<int>(temperature     + 0.5), 24);  
+    sender.send(static_cast<int>(temperature     + 0.5), 24);
 }
 
 /**
@@ -151,11 +152,11 @@ void getDHT11() {
     if (isnan(humidity_air) || isnan(temperature)) {
         Serial.println("[-] Error: Could not read DHT11.");
     } else {
-        Serial.print(", Humidity: ");
+        Serial.print(", Humidity air: ");
         Serial.print(humidity_air);
-        Serial.print(" %, Temp: ");
+        Serial.print(" %, Temperature: ");
         Serial.print(temperature);
-        Serial.println(" Celsius");   
+        Serial.print(" Celsius");
     }
 }
 
@@ -163,8 +164,10 @@ void getDHT11() {
  * Read humidity in the ground of that plant.
  */
 void getMoisture() {
-    // Currently there is no sensor for ground humidity at hand
-    // humidity_ground = analogRead(MOISTURE_PIN);
+    humidity_ground = analogRead(MOISTURE_PIN);
+
+    Serial.print(", Humidity ground: ");
+    Serial.println(humidity_ground);
 }
 
 /**
@@ -173,19 +176,19 @@ void getMoisture() {
  * TODO: really identify sunrise - do not depend only on lightReading.
  */
 void getDaylight() {
-        lightReading = analogRead(PHOTORESISTOR_PIN);
-        if (lightReading == 0) {
-            Serial.println("[-] Error: I am in a black hole.");
-        } else {
-            Serial.print("Light: ");
-            Serial.print(lightReading);
+    lightReading = analogRead(PHOTORESISTOR_PIN);
+    if (lightReading == 0) {
+        Serial.println("[-] Error: I am in a black hole.");
+    } else {
+        Serial.print(" Light: ");
+        Serial.print(lightReading);
 
-            if (lightReading > nightThreshold) {  // sundown
-                isSunrise = false;
-            } else {
-                isSunrise = true;
-            }
+        if (lightReading > nightThreshold) {  // sundown
+            isSunrise = false;
+        } else {
+            isSunrise = true;
         }
+    }
 }
 
 /**
@@ -199,3 +202,4 @@ void pump() {
     digitalWrite(PUMP_PIN, LOW);
     isPumping = false;
 }
+
