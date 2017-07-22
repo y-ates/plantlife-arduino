@@ -26,7 +26,7 @@
 
 const int onTime                  = 10 * 1000;
 const int nightThreshold          = 600;
-const int humidityGroundThreshold = 200;
+const int humidityGroundThreshold = 860;
 const int loopDelay               = 2000;
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -65,7 +65,7 @@ void loop() {
  */
 boolean decidePump() {
     if (isSunrise) {  // sunrise
-        if (humidity_ground < humidityGroundThreshold) {
+        if (humidity_ground > humidityGroundThreshold) {
             if (hasWater) {
                 return true;
             }
