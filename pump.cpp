@@ -130,15 +130,21 @@ void getSensors() {
  * Note: Every paket will be send 4 times as shown above.
  */
 void sendSensordata() {
-    /*sender.send(130000+lightReading, 24);
-      sender.send(static_cast<int>(110000+humidity_air    + 0.5), 24);
-      sender.send(static_cast<int>(100000+humidity_ground + 0.5), 24);
-      sender.send(static_cast<int>(120000+temperature     + 0.5), 24);*/
+    if (humidity_ground > 999) {
+        humidity_ground = 999;
+    }
 
-    sender.send(lightReading, 24);
-    sender.send(static_cast<int>(humidity_air    + 0.5), 24);
-    sender.send(static_cast<int>(humidity_ground + 0.5), 24);
-    sender.send(static_cast<int>(temperature     + 0.5), 24);
+
+    sender.send(static_cast<int>(10000+humidity_ground + 0.5), 24);
+    sender.send(static_cast<int>(11000+humidity_air    + 0.5), 24);
+    sender.send(static_cast<int>(12000+temperature     + 0.5), 24);
+    sender.send(13000+lightReading, 24);
+
+
+    // sender.send(lightReading, 24);
+    // sender.send(static_cast<int>(humidity_air    + 0.5), 24);
+    // sender.send(static_cast<int>(humidity_ground + 0.5), 24);
+    // sender.send(static_cast<int>(temperature     + 0.5), 24);
 }
 
 /**
