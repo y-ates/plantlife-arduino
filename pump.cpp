@@ -89,62 +89,37 @@ void getSensors() {
 /**
  * Send current sensor data with the 434 MHz module.
  *
- * Send format:
+ * Sending integers encoded like this:
+ * 
+ * XYZZZZ
+ * X = identifies the sender arduino (not used)
+ * Y = idnetifies the sensor supplying the data
+ * Z = the value read from the sensor
  *
- * Received 16777215  <- indicates that lightReading will be printed
- * Received 16777215  <- indicates that lightReading will be printed
- * Received 16777215  <- indicates that lightReading will be printed
- * Received 16777215  <- indicates that lightReading will be printed
- * Received 782       <- lightReading
- * Received 782       <- lightReading
- * Received 782       <- lightReading
- * Received 782       <- lightReading
- * Received 782       <- lightReading
- * Received 16777214  <- indicates that humidity_air (int) will be printed
- * Received 16777214  <- indicates that humidity_air (int) will be printed
- * Received 16777214  <- indicates that humidity_air (int) will be printed
- * Received 16777214  <- indicates that humidity_air (int) will be printed
- * Received 16777214  <- indicates that humidity_air (int) will be printed
- * Received 71        <- humidity_air
- * Received 71        <- humidity_air
- * Received 71        <- humidity_air
- * Received 71        <- humidity_air
- * Received 71        <- humidity_air
- * Received 16777213  <- indicates that humidity_ground (int) will be printed
- * Received 16777213  <- indicates that humidity_ground (int) will be printed
- * Received 16777213  <- indicates that humidity_ground (int) will be printed
- * Received 16777213  <- indicates that humidity_ground (int) will be printed
- * Received 16777213  <- indicates that humidity_ground (int) will be printed
- * <-    humidity_ground is not being read currently ->
- * Received 16777212  <- indicates that temperature (int) will be printed
- * Received 16777212  <- indicates that temperature (int) will be printed
- * Received 16777212  <- indicates that temperature (int) will be printed
- * Received 16777212  <- indicates that temperature (int) will be printed
- * Received 16777212  <- indicates that temperature (int) will be printed
- * Received 23        <- temperature
- * Received 23        <- temperature
- * Received 23        <- temperature
- * Received 23        <- temperature
- * Received 23        <- temperature
- *
- * Note: Every paket will be send 4 times as shown above.
+ * Note: Every paket will be sent 4 times in a row (by rcswitch).
  */
 void sendSensordata() {
+    /**
+     * Cap values to 999 as encoding design does not allow bigger values.
+     */
     if (humidity_ground > 999) {
         humidity_ground = 999;
+    } else if (humidity_air > 999) {
+        humidity_air = 999;
+    } else if (temperature > 999) {
+        temperature = 999;
+    } else if (lightReading > 999) {
+        lightReading = 999;
     }
 
-
-    sender.send(static_cast<int>(10000+humidity_ground + 0.5), 24);
-    sender.send(static_cast<int>(11000+humidity_air    + 0.5), 24);
-    sender.send(static_cast<int>(12000+temperature     + 0.5), 24);
-    sender.send(13000+lightReading, 24);
-
-
-    // sender.send(lightReading, 24);
-    // sender.send(static_cast<int>(humidity_air    + 0.5), 24);
-    // sender.send(static_cast<int>(humidity_ground + 0.5), 24);
-    // sender.send(static_cast<int>(temperature     + 0.5), 24);
+    delay(500);
+    sender.send(static_cast<int>(10000 + humidity_ground + 0.5), 24);
+    delay(500);
+    sender.send(static_cast<int>(11000 + humidity_air    + 0.5), 24);
+    delay(500);
+    sender.send(static_cast<int>(12000 + temperature     + 0.5), 24);
+    delay(500);
+    sender.send(13000 + lightReading, 24);
 }
 
 /**
