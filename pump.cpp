@@ -104,11 +104,14 @@ void sendSensordata() {
      */
     if (humidity_ground > 999) {
         humidity_ground = 999;
-    } else if (humidity_air > 999) {
+    }
+    if (humidity_air > 999) {
         humidity_air = 999;
-    } else if (temperature > 999) {
+    } 
+    if (temperature > 999) {
         temperature = 999;
-    } else if (lightReading > 999) {
+    }
+    if (lightReading > 999) {
         lightReading = 999;
     }
 
@@ -183,4 +186,3 @@ void pump() {
     digitalWrite(PUMP_PIN, LOW);
     isPumping = false;
 }
-
