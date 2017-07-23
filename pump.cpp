@@ -28,7 +28,7 @@
 const int onTime                  = TEN_SECONDS;
 const int nightThreshold          = 600;
 const int humidityGroundThreshold = 850;
-const unsigned int loopDelay      = 100; // 10 minutes (=> 10000 * 100)
+const unsigned int loopDelay      = 10 * 6; // 10 minutes (=> 10000 * (10 * 6))
 
 DHT dht(DHTPIN, DHTTYPE);
 RCSwitch sender = RCSwitch();
