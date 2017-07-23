@@ -23,11 +23,12 @@
 #define DHTTYPE DHT11
 #define PHOTORESISTOR_PIN A0
 #define MOISTURE_PIN A5
+#define TEN_SECONDS 10000
 
-const int onTime                  = 10 * 1000;
+const int onTime                  = TEN_SECONDS;
 const int nightThreshold          = 600;
-const int humidityGroundThreshold = 860;
-const int loopDelay               = 2000;
+const int humidityGroundThreshold = 850;
+const unsigned int loopDelay      = 100; // 10 minutes (=> 10000 * 100)
 
 DHT dht(DHTPIN, DHTTYPE);
 RCSwitch sender = RCSwitch();
@@ -50,7 +51,9 @@ void setup() {
 }
 
 void loop() {
-    delay(loopDelay);
+    for (int i=0; i < loopDelay; ++i) {
+        delay(TEN_SECONDS);
+    }
 
     getSensors();
 
@@ -90,7 +93,7 @@ void getSensors() {
  * Send current sensor data with the 434 MHz module.
  *
  * Sending integers encoded like this:
- * 
+ *
  * XYZZZZ
  * X = identifies the sender arduino (not used)
  * Y = idnetifies the sensor supplying the data
@@ -107,7 +110,7 @@ void sendSensordata() {
     }
     if (humidity_air > 999) {
         humidity_air = 999;
-    } 
+    }
     if (temperature > 999) {
         temperature = 999;
     }
@@ -186,3 +189,4 @@ void pump() {
     digitalWrite(PUMP_PIN, LOW);
     isPumping = false;
 }
+
