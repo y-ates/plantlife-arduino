@@ -164,6 +164,7 @@ void getMoisture() {
  */
 void getDaylight() {
     lightReading = analogRead(PHOTORESISTOR_PIN);
+	
     if (lightReading == 0) {
         Serial.println("[-] Error: I am in a black hole.");
     } else {
