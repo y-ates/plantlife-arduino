@@ -43,7 +43,7 @@ float temperature        = 0;
 void setup() {
     pinMode(PUMP_PIN, OUTPUT);
     pinMode(PHOTORESISTOR_PIN, INPUT);
-	pinMode(MOISTURE_PIN, INPUT);
+    pinMode(MOISTURE_PIN, INPUT);
 
     sender.enableTransmit(10);
     sender.setProtocol(2);
@@ -165,7 +165,7 @@ void getMoisture() {
  */
 void getDaylight() {
     lightReading = analogRead(PHOTORESISTOR_PIN);
-	
+
     if (lightReading == 0) {
         Serial.println("[-] Error: I am in a black hole.");
     } else {
