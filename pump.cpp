@@ -43,6 +43,7 @@ float temperature        = 0;
 void setup() {
     pinMode(PUMP_PIN, OUTPUT);
     pinMode(PHOTORESISTOR_PIN, INPUT);
+	pinMode(MOISTURE_PIN, INPUT);
 
     sender.enableTransmit(10);
     sender.setProtocol(2);
