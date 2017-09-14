@@ -32,7 +32,7 @@ const unsigned int loopDelay      = 10 * 6; // 10 minutes (=> 10000 * (10 * 6))
 
 DHT dht(DHTPIN, DHTTYPE);
 RCSwitch sender = RCSwitch();
-boolean isSunrise        = true;   // is it day or night?
+boolean isSundown        = true;   // is it day or night?
 boolean isPumping        = false;  // is the pump currently pumping?
 boolean hasWater         = true;   // does the water tank have water?
 int lightReading         = 0;
@@ -68,7 +68,6 @@ void loop() {
  * water in the tank to pump.
  */
 boolean decidePump() {
-    if (isSunrise) {  // sunrise
     if (isSundown) {  // night
         if (humidity_ground > humidityGroundThreshold) {
             if (hasWater) {
@@ -174,9 +173,9 @@ void getDaylight() {
         Serial.print(lightReading);
 
         if (lightReading > nightThreshold) {  // sundown
-            isSunrise = false;
+            isSundown = false;
         } else {
-            isSunrise = true;
+            isSundown = true;
         }
     }
 }
