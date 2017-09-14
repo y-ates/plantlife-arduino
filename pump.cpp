@@ -69,6 +69,7 @@ void loop() {
  */
 boolean decidePump() {
     if (isSunrise) {  // sunrise
+    if (isSundown) {  // night
         if (humidity_ground > humidityGroundThreshold) {
             if (hasWater) {
                 return true;
